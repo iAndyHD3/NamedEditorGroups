@@ -56,4 +56,6 @@ struct NIDSetupTriggerPopup : geode::Modify<NIDSetupTriggerPopup, SetupTriggerPo
 	static IDInputInfo commonInputSetup(cocos2d::CCLayer*, NID, std::uint16_t, std::vector<CCNode*>&&, CCNode*, CCNode*, std::function<void(std::vector<CCNode*>&&)>&& = [](...) {});
 
 	static void onEditInput(NIDSetupTriggerPopup*, std::uint16_t, const std::string&);
+
+	void onClose(CCObject* sender) override;
 };

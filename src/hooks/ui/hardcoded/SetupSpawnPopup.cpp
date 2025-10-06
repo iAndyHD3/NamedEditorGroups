@@ -329,7 +329,7 @@ struct NIDSetupSpawnPopup : geode::Modify<NIDSetupSpawnPopup, SetupSpawnPopup>
 			this->updateValue(ORIGINAL_ID_PROPERTY, remapOrigID);
 			this->updateValue(NEW_ID_PROPERTY, remapNewID);
 		}
-
+		geode::log::error("schedule 1");
 		CCScheduler::get()->scheduleSelector(
 			schedule_selector(SetupSpawnPopup::updateRemapButtons),
 			this, .0f, 0, .0f, false

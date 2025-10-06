@@ -73,6 +73,7 @@ class NamedIDCell<true> : public cocos2d::CCNode, public cocos2d::CCTouchDelegat
 {
 public:
 	static NamedIDCell<true>* create(NID, short, std::string&&, float);
+	~NamedIDCell();
 
 protected:
 	bool init(NID, short, std::string&&, float);

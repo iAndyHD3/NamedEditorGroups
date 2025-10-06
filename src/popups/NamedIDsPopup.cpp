@@ -1,5 +1,6 @@
 #include "NamedIDsPopup.hpp"
 
+#include <source_location>
 #include <vector>
 #include <algorithm>
 
@@ -18,6 +19,7 @@ using namespace geode::prelude;
 
 NamedIDsPopup* NamedIDsPopup::create(bool readOnly)
 {
+	geode::log::info("{}", __FUNCTION__);
 	auto ret = new NamedIDsPopup();
 
 	if (ret && ret->initAnchored(300.f, 260.f, readOnly))

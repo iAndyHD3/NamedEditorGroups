@@ -12,6 +12,7 @@ AutofillInput::AutofillInput(
 		textInput(input), editInputCallback(std::move(editCb)),
 		selectCallback(std::move(selectCb))
 {
+	geode::log::info("{}", __FUNCTION__);
 	autofillPreview->attachToInput(textInput);
 	autofillPreview->setSelectCallback(std::move(selectCallback));
 
@@ -22,6 +23,7 @@ AutofillInput::AutofillInput(
 
 AutofillInput::AutofillInput(const AutofillInput& other)
 {
+	geode::log::info("{}", __PRETTY_FUNCTION__);
 	this->nid = other.nid;
 	this->textInput = other.textInput;
 	this->autofillPreview.swap(other.autofillPreview);
@@ -45,6 +47,7 @@ void AutofillInput::onEditInput(const std::string& str)
 
 AutofillInput& AutofillInput::operator=(const AutofillInput& other) noexcept
 {
+	geode::log::info("{}", __PRETTY_FUNCTION__);
 	this->nid = other.nid;
 	this->textInput = other.textInput;
 	this->autofillPreview.swap(other.autofillPreview);
@@ -61,6 +64,7 @@ AutofillInput& AutofillInput::operator=(const AutofillInput& other) noexcept
 
 AutofillInput& AutofillInput::operator=(AutofillInput&& other) noexcept
 {
+	geode::log::info("{}", __PRETTY_FUNCTION__);
 	this->nid = other.nid;
 	this->textInput = other.textInput;
 	this->autofillPreview.swap(other.autofillPreview);

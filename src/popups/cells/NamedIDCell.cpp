@@ -5,6 +5,7 @@
 
 #include <NIDManager.hpp>
 #include <NIDExtrasManager.hpp>
+#include <source_location>
 
 #include "../EditDescriptionPopup.hpp"
 
@@ -359,6 +360,7 @@ void NamedIDCell<false>::colorSelectClosed(CCNode*)
 
 NamedIDCell<false>::~NamedIDCell()
 {
+	geode::log::info("~NamedIDCell<false>()");
 	g_currentEditingItem = nullptr;
 }
 
@@ -378,8 +380,16 @@ NamedIDCell<true>* NamedIDCell<true>::create(NID idType, short id, std::string&&
 	return ret;
 }
 
+NamedIDCell<true>::~NamedIDCell()
+{
+	//geode::log::info("~NamedIDCell<true>()");
+}
+
+
 bool NamedIDCell<true>::init(NID idType, short id, std::string&& name, float width)
 {
+	//geode::log::info("{}", __FUNCTION__);
+
 	if (!CCNode::init()) return false;
 
 	m_id_type = idType;

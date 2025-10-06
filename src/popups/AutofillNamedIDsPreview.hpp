@@ -1,5 +1,6 @@
 #pragma once
 
+#include <chrono>
 #include <string_view>
 
 #include <NIDEnum.hpp>
@@ -34,6 +35,7 @@ public:
 
 private:
 	void selectCallback(NID, short);
+	virtual ~AutofillNamedIDsPreview();
 
 private:
 	static constexpr cocos2d::CCSize PREVIEW_SIZE{ 190.f, 110.f };
@@ -41,11 +43,12 @@ private:
 
 	NID m_ids_type;
 	std::string m_query;
+	int updatecount = 0;
 
 	std::function<void(NID, short)> m_select_callback;
 
 	cocos2d::extension::CCScale9Sprite* m_bg_sprite;
-	cocos2d::CCLayerColor* m_layer_bg;
-	geode::ScrollLayer* m_list;
-	geode::Scrollbar* m_scroll_bar;
+	geode::Ref<cocos2d::CCLayerColor> m_layer_bg;
+	geode::Ref<geode::ScrollLayer> m_list;
+	geode::Ref<geode::Scrollbar> m_scroll_bar;
 };

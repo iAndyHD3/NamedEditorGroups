@@ -1,5 +1,6 @@
 #include "SetupPopups.hpp"
 
+#include <Geode/binding/SetupTriggerPopup.hpp>
 #include <array>
 #include <unordered_map>
 
@@ -24,6 +25,7 @@ cocos2d::CCArray* NIDSetupTriggerPopup::createValueControlAdvanced(
 	float sliderMax, int page, int group,
 	GJInputStyle inputStyle, int decimalPlaces, bool unk4
 ) {
+	geode::log::info("Set up input box");
 	// it seems like the game does nothing with the returned array, but we should add our stuff either way
 	// in case it ever does
 	auto nodes = SetupTriggerPopup::createValueControlAdvanced(
@@ -88,6 +90,12 @@ cocos2d::CCArray* NIDSetupTriggerPopup::createValueControlAdvanced(
 	handleSpecialCasesPost(property, nodes);
 
 	return nodes;
+}
+
+void NIDSetupTriggerPopup::onClose(CCObject* sender)
+{
+	geode::log::info("{}", __FUNCTION__);
+	SetupTriggerPopup::onClose(sender);
 }
 
 void NIDSetupTriggerPopup::triggerArrowLeft(CCObject* sender)

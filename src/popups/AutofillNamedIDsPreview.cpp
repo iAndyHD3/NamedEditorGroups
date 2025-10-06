@@ -1,6 +1,7 @@
 #include "AutofillNamedIDsPreview.hpp"
 
 #include <NIDManager.hpp>
+#include <chrono>
 
 #include "cells/NamedIDCell.hpp"
 
@@ -10,6 +11,7 @@ using namespace geode::prelude;
 
 AutofillNamedIDsPreview* AutofillNamedIDsPreview::create(NID nid, const std::string_view query)
 {
+	geode::log::info("AutofillNamedIDsPreview::create");
 	auto ret = new AutofillNamedIDsPreview();
 
 	if (ret && ret->init(nid, query))
@@ -26,6 +28,7 @@ AutofillNamedIDsPreview* AutofillNamedIDsPreview::create(NID nid, const std::str
 bool AutofillNamedIDsPreview::init(NID nid, const std::string_view query)
 {
 	if (!CCLayer::init()) return false;
+
 
 	this->setID("AutofillNamedIDsPreview");
 
@@ -62,6 +65,7 @@ bool AutofillNamedIDsPreview::init(NID nid, const std::string_view query)
 
 	m_layer_bg->addChildAtPosition(m_list, Anchor::BottomLeft);
 
+
 	auto listBorders = geode::ListBorders::create();
 	listBorders->setContentSize(SCROLL_LAYER_SIZE);
 	this->addChildAtPosition(listBorders, Anchor::Center, { -2.5f, .0f });
@@ -70,6 +74,12 @@ bool AutofillNamedIDsPreview::init(NID nid, const std::string_view query)
 	this->addChildAtPosition(m_scroll_bar, Anchor::Center, { m_layer_bg->getContentWidth() / 2.f + 3.f, .0f });
 
 	return true;
+}
+
+AutofillNamedIDsPreview::~AutofillNamedIDsPreview()
+{
+	geode::log::info("DESTURCTOR AUTOFILL LAYER {} {} {}", m_layer_bg->m_uReference, m_list->m_uReference, m_scroll_bar->m_uReference);
+	delete m_list;
 }
 
 void AutofillNamedIDsPreview::attachToInput(geode::TextInput* input)
@@ -114,14 +124,17 @@ void AutofillNamedIDsPreview::show()
 {
 	if (!this->getParent())
 		CCScene::get()->addChild(this, CCScene::get()->getHighestChildZ());
+
 }
 
 void AutofillNamedIDsPreview::updateList(const std::string_view query)
 {
+	updatecount++;
+	geode::log::info("UPDATE LIST: {}", updatecount);
+
 	m_query = query;
 
 	m_list->m_contentLayer->removeAllChildren();
-
 	{
 		const std::unordered_map<std::string, short>& namedIDs = NIDManager::getNamedIDs(m_ids_type);
 
